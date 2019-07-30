@@ -1,0 +1,67 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+fieldset,
+lengend,
+button,
+input,
+textarea,
+th,
+td {
+	margin: 0;
+	padding: 0;
+}
+
+a{text-decoration: none;color: #757575;}
+a:hover {color: #ff6700;text-decoration: none}
+li{list-style: none;}
+::selection{background: transparent;}
+
+ul,
+ol {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+hr {
+	border: none;
+	height: 1px;
+}
+
+.fl {
+	float: left
+}
+
+.fr {
+	float: right
+}
+
+.clearfix:after {
+	content: " ";
+	display: block;
+	clear: both;
+	visibility: hidden;
+}
