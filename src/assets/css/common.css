@@ -1,0 +1,169 @@
+.main{
+    overflow: hidden;
+}
+/* 顶部固定定位，占位置 */
+.stand{
+    height: 2.5rem;
+    width: 100%;
+}
+/* 登录页面 */
+.login{
+    background:#000;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top:2.5rem;
+    transition: all 500ms;
+    z-index: 99;
+}
+/* 登录页面最上面登录按钮 */
+.login>.login-top{
+    height: 110px;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    background: #3d3d3d;
+    position: relative;
+}
+.login>div>a{
+    color: #ffffff;
+}
+.login>div img{
+    width: 100%;
+    height: 100%;
+}
+.login>.login-top>a>.avatr{
+    width: 4.375rem;
+    height: 4.375rem;
+    border-radius: 50%;
+    overflow: hidden;
+    float: left;
+}
+.login>.login-top>a>.cont{
+    float: left;
+    line-height: 4.375rem;
+    margin-left: 1.25rem;
+}
+/* 登录页面的箭头 */
+.login>div>a>.arrow{
+    float: left;
+    height: 14px;
+    width: 8px;
+    background-image: url("../imgs/allimg.png");
+    background-position: -247px -151px;
+    background-size: 261px 235px;
+    position: absolute;
+    top: calc((100% - 14px) / 2);
+    right: 10px;
+}
+/* 登录页面的主站按钮 */
+.login>.login-main{
+    position: relative;
+    height: 38px;
+    width: 100%;
+    background-color: #3d3d3d;
+    margin-bottom: 1px;
+}
+/* 主站里面图片 */
+.login>.login-main .login-main-img{
+    background: url("../imgs/sprite-svg.b95276e7.svg") -2px -43px/82px 61px;
+    height: 16px;
+    width: 16px;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 11px;
+    left: 10px;
+}
+.login>.login-main .img2{
+    background: url("../imgs/sprite-svg.b95276e7.svg") -46px -2px/82px 61px;
+}
+.login>.login-main .img3{
+    background: url("../imgs/sprite-svg.b95276e7.svg") -22px -43px/82px 61px;
+}
+/* 主站里面的文字 */
+.login>.login-main .login-main-cont{
+    padding-left: 36px;
+    line-height: 38px;
+    font-size: 16px;
+}
+
+/* 头部导航 */
+header{
+    padding:0.625rem;
+    background: #000;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    box-sizing: border-box;
+}
+header>div{
+    line-height: 1;
+    position: absolute;
+}
+/* logo */
+header>div:nth-of-type(1){
+    width: 6.375rem;
+    height: 1.25rem;
+    background: url("../imgs/logo.png") no-repeat;
+    background-position: 50%;
+    background-size: 100%;
+    position: relative;
+}
+/* 搜索 */
+header>a{
+    position: absolute;
+    display: block;
+    width: 1.375rem;
+    height: 1.25rem;
+    background-image: url("../imgs/allimg.png");
+    background-position: -13.9375rem 0;
+    background-size: 16.3125rem 14.6875rem;
+    right: 3.25rem;
+}
+/* 登录 */
+header>div:nth-of-type(2){
+    width: 1.375rem;
+    height: 1.25rem;
+    background-image: url("../imgs/allimg.png");
+    background-position: -13.9375rem -1.375rem;
+    background-size: 16.3125rem 14.6875rem;
+    right: 0.625rem;
+}
+.router-link-exact-active{
+    background: none;
+    width: 0;
+    height: 0;
+}
+
+/* 底部 */
+footer{
+    padding: 10px 20px;
+}
+footer>.bottom-txt{
+    font-size: 12px;
+    color: #9e9e9e;
+    text-align: center;
+}
+footer>.btns{
+    display: flex;
+    justify-content: space-around;
+    font-size: 14px;
+    color: #9e9e9e;
+    margin-bottom: 0.625rem;
+}
+footer>.btns>.btn1{
+    margin-left: 14px;
+}
+footer>.btns>.btn2{
+    margin-right: 14px;
+}
+footer>.btns>.imgs{
+    width: 14px;
+    height: 16px;
+    background-image: url("../imgs/allimg.png");
+    background-position: -247px 0;
+    -webkit-background-size: 261px 235px;
+    -moz-background-size: 261px 235px;
+    background-size: 261px 235px;
+}
