@@ -1,5 +1,6 @@
 .main{
     overflow: hidden;
+    position: relative;
 }
 /* 顶部固定定位，占位置 */
 .stand{
@@ -100,6 +101,27 @@ header{
 header>div{
     line-height: 1;
     position: absolute;
+}
+/* 三个跳转 */
+.router-main{
+    position: relative;
+    top: 2.5rem;
+    padding: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    background: #ffffff;
+}
+.router-main>a{
+    display: inline-block;
+    min-width: 4.6875rem;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    text-align: center;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.router-link-exact-active{
+    border-bottom: 2px solid #000;
 }
 /* logo */
 header>div:nth-of-type(1){

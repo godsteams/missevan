@@ -1,0 +1,166 @@
+body{
+    background: #f5f5f5;
+}
+.container>.main-page{
+    width: 100%;
+    padding: 0 2.25rem;
+    background: #f5f5f5;
+    box-sizing: border-box;
+}
+.container>.main-page>form{
+    margin: 10px auto;
+    padding: 5px;
+}
+.container>.main-page>form>span{
+    font-size: 16px;
+    padding: 12px 0;
+    color: #000;
+    display: block;
+}
+.container>.main-page>form input,.container>.main-page>form>a{
+    display: block;
+    width: 100%;
+    height: 42px;
+    line-height: 30px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    font-size: 14px;
+    background-color: #fff;
+    color: #000;
+}
+.container>.main-page>form>.pwd{
+    position: relative;
+}
+.container>.main-page>form>.pwd>a{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 5px;
+    margin: auto;
+    height: 14px;
+    font-size: 14px;
+    line-height: 14px;
+    color: #bdbdbd;
+}
+.container>.main-page>form>a{
+    text-align: center;
+}
+.container>.main-page>form>input:nth-of-type(1){
+    margin: 8px 0 20px 0;
+}
+.container>.main-page>form>div{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin: 20px 0;
+}
+.container>.main-page>form>input[type=submit]{
+    height: 40px;
+    line-height: 26px;
+    color: #fff;
+    background-color: #c14a3f;
+    border-color: #c14a3f;
+    margin:40px 0 20px 0;
+    font-size: 16px;
+}
+.container>.main-page>form input[type=checkbox]{
+    border-radius: 4px;
+    border: 1px solid #bdbdbd;
+    background-color: #fff;
+    vertical-align: bottom;
+    position: relative;
+    bottom: 2px;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    position: absolute;
+    left: -1000em;
+}
+:root #check-row-before+label:before, :root #modal-check-row-before+label:before {
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin: 0 .5em 0 0;
+    border-radius: 3px;
+    border: 1px solid #bdbdbd;
+    background-color: #fff;
+    vertical-align: bottom;
+    position: relative;
+    bottom: 2px;
+}
+#MemberPage #check-row-before:checked+label:after {
+    position: absolute;
+    top: 0;
+    bottom: 4px;
+    left: 8px;
+    content: "";
+    display: block;
+    width: 4px;
+    height: 10px;
+    margin: auto;
+    transform: rotate(-145deg);
+    border-top: 2px solid #fff;
+    border-left: 2px solid #fff;
+}
+:root #check-row-before:checked+label:after, :root #modal-check-row-before:checked+label:after {
+    content: "\2714";
+    color: #fff;
+    top: -1px;
+    left: 1px;
+    position: absolute;
+    color: #c14a3f;
+}
+.container>.main-page>.threelogin{
+    width: 100%;
+    display: block;
+    position: relative;
+    text-align: center;
+    font-size: 13px;
+    color: #9e9e9e;
+    height: 18px;
+    line-height: 18px;
+}
+.container>.main-page>.threelogin>.line{
+    width: 4.75rem;
+    height: 0.5px;
+    background: #e0e0e0;
+    position: absolute;
+    top: 50%;
+}
+.container>.main-page>.threelogin>.line-left{
+    left: 0;
+}
+.container>.main-page>.threelogin>.line-right{
+    right: 0;
+}
+.container>.main-page>.threeimg{
+    display: flex;
+    justify-content: space-around;
+}
+.container>.main-page>.threeimg>a{
+    display: inline-block;
+    width: 3.125rem;
+    height: 3.125rem;
+    background-image: url(//static.missevan.com/assets/m/images/build/sprite-icons-share@2x.754f2ea8.png);
+    background-size: 154px 153px;
+    margin: 20px 0;
+}
+.container>.main-page>.threeimg>.qqlogin{
+    background-position: 0 -104px;
+}
+.container>.main-page>.threeimg>.weibo{
+    background-position: -104px -51px;
+}
+.container>.main-page>.threeimg>.bilibli{
+    background-position: 0 -52px;
+}
+footer{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    padding: 10px 0;
+}
