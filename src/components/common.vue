@@ -12,7 +12,7 @@
         <!-- 三个路由跳转 -->
         <div class="router-main">
             <router-link to="/albums">音单</router-link>
-            <router-link to="/recomd">推荐</router-link>
+            <router-link to="/">推荐</router-link>
             <router-link to="/catalogroot">分类</router-link>
         </div>
         <!-- 隐藏的登录页 -->

@@ -7,6 +7,9 @@ Vue.use(VueRouter)
 import Vuex from 'vuex';
 Vue.use(Vuex)
 import store from "./store"
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
 Vue.config.productionTip = false
 
 
