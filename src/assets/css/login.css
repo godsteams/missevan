@@ -2,7 +2,6 @@ body{
     background: #f5f5f5;
 }
 .container>.main-page{
-    width: 100%;
     padding: 0 2.25rem;
     background: #f5f5f5;
     box-sizing: border-box;
@@ -157,10 +156,4 @@ body{
 }
 .container>.main-page>.threeimg>.bilibli{
     background-position: 0 -52px;
-}
-footer{
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-    padding: 10px 0;
 }

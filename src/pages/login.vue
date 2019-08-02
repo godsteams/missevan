@@ -3,11 +3,11 @@
         <commonhead/>
         <div class="container">
             <div class="main-page">
-                <form action="" method="post">
+                <form action="/loginsuccess" method="get">
                     <span>登录 猫耳FM</span>
-                    <input type="text" name="username" placeholder="手机号/邮箱">
+                    <input type="text" placeholder="手机号/邮箱">
                     <div class="pwd">
-                        <input type="password" name="pwd" placeholder="密码">
+                        <input type="password" placeholder="密码">
                         <!-- 忘记密码 -->
                         <a href="">忘记密码?</a>
                     </div>
@@ -18,7 +18,7 @@
                         </span>
                         <span>海外手机号登录</span>
                     </div>
-                    <input type="submit" value="登录">
+                    <input type="submit" value="登录" @click="foo($event)">
                     <router-link to="/register">注册</router-link>
                 </form>
                 <div class="threelogin">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-        <commonfoot/>
+        <commonfoot class="footer"/>
     </div>
 </template>
 <script>
@@ -42,9 +42,21 @@ import commonfoot from "../components/commonfooter"
 export default {
     components:{
         commonhead,commonfoot
-    }
+    },
+    methods: {
+        foo(e){
+            e.preventDefault();
+            this.$router.push("/loginsuccess")
+        }
+    },
 }
 </script>
 <style scoped>
+
 @import url("../assets/css/login.css");
+.footer{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
 </style>
