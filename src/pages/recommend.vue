@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="panel-body">
-        <a class="Thumbnail channel" href="#" v-for="w in channel">
+        <a class="Thumbnail channel" href="#" v-for="w in channel" @click="toDetails(w.id)">
           <div
             :title="w.name"
             class="lazy-image lazy-loaded cover"
@@ -129,6 +129,9 @@ export default {
   methods: {
     toDetail(id){
             this.$router.push({name:"detail",params:{id:id}})
+        },
+        toDetails(ids){
+            this.$router.push({name:"details",params:{id:ids}})
         },
   },
 }
