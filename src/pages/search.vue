@@ -4,8 +4,16 @@
         <div class="content">
             <h3>热门搜索</h3>
             <div class="txt"> <span v-for="v in dat.info"> {{v.key}} </span> </div>
+            <div class="search-result" v-show="xianshi">
+                <h3>搜索 &nbsp; <span> "{{txt}}"  </span> </h3>
+                <ul>
+                    <li v-for="s in search">
+                       <span></span> {{s}}
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="inp"><input type="search"><span></span></div>
+        <div class="inp"><input type="search" v-model="txt"><span></span></div>
         <router-link to="/">取消</router-link>
         <commonfooter class="foot"></commonfooter>
     </div>
@@ -20,23 +28,77 @@ export default {
     },
     data(){
         return {
-            msg:[]
+            msg:[],
+            txt:"",
+            xianshi:false
         }
     },
     methods: {
-        ...mapActions(["getdata"])
+        ...mapActions(["getdata"]),
+        ...mapActions(["getsearch"])
     },
     computed: {
-        ...mapState(["dat"])
+        ...mapState(["dat"]),
+        ...mapState(["search"])      
+    },
+    watch: {
+        txt(){
+            if(this.txt == ""){
+                this.xianshi=false
+                this.search = ""
+            }else{
+                this.xianshi=true
+                this.getsearch("/sound/suggest?s="+this.txt)
+
+            }
+        }
     },
     mounted() {
         this.getdata("/mobileWeb/hotsearch")
-        console.log(this.dat)
+        
     },
 }
 </script>
 
 <style scoped>
+.search-result{
+    height: 500px;
+    width: 100%;
+    background:#f5f5f5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 0 0 10px;
+}
+.search-result>h3{
+    display: block;
+    position: relative;
+    height: 40px;
+    border-bottom: 1px solid #e0e0e0;
+    line-height: 40px;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.search-result>ul>li{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    position: relative;
+    height: 40px;
+    color: #3d3d3d;
+    vertical-align: top;
+    font-size: 14px;    
+}
+.search-result>ul>li>span{
+    display: inline-block;
+    position: relative;
+    width: 13px;
+    height: 13px;
+    margin: 14px 0px 0 0;
+    background-image: url(//static.missevan.com/assets/m/images/build/sprite-icons@2x.606db8a9.png);
+    background-position: -247px -52px;
+    background-size: 261px 235px;
+}
 .foot{
     position: fixed;
     bottom: 0;
