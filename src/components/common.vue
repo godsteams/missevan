@@ -3,7 +3,7 @@
         <!-- 头部 -->
         <header>
             <!-- logo -->
-            <div></div>
+            <div @click="toindex"></div>
             <!-- 搜索 -->
             <router-link to="/search"></router-link>
             <!-- 点击显示登录页 -->
@@ -13,7 +13,7 @@
         <div class="router-main">
             <router-link to="/musiclist">音单</router-link>
             <router-link to="/recomd">推荐</router-link>
-            <router-link to="/classify">分类</router-link>
+            <router-link to="/catalogroot">分类</router-link>
         </div>
         <!-- 隐藏的登录页 -->
         <div class="login" ref="login" :style="{right:rg}">
@@ -71,6 +71,10 @@ export default {
                 this.$refs.login.style.right = "-100%"
             }
         },
+        toindex(){
+            console.log(1)
+            this.$router.push("/")
+        }
     },
 }
 </script>
