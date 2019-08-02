@@ -3,15 +3,18 @@
         <!-- 头部 -->
         <div class="herder">{{title.catalog_name}}</div>
         <!-- 导航条 -->
-        <div class="list">
-            <!-- 锚点# -->
+        <div class="toplist clearfloat">
+            <div class="list clearfloat">
             <a href="#all"> 全区动态</a>
+            <!-- 锚点# -->
             <a :href="`#${li.catalog_name_alias}`"
                 v-for=" li in list"
                 :key=li.id
                 >{{li.catalog_name}}</a>
             
-         </div>
+             </div>
+        </div>
+        
 
          <div>
              <!-- 锚点 -->
@@ -20,14 +23,15 @@
             v-for="i in intro.slice(0,4)"
             :key=i.id
             class="intro"
+             @click="toskip(i.id)"
             >
             <img :src="i.front_cover" class="fl">
                 <div class="fl">
                     <p>{{i.soundstr}}</p>
                     <span>{{i.username}}</span>
                     <div>
-                        <span><i></i>{{i.view_count | count}}</span>
-                        <span><i></i>{{i.duration | duration}}</span>
+                        <span><i></i>{{i.view_coun}}</span>
+                        <span><i></i>{{i.duration | duration}}{{i.view_coun}}</span>
                     </div>
                 </div>
             
@@ -41,11 +45,17 @@
 
             <!-- 分类简介 -->
             <div 
-            v-for="i in datas.slice(0,4)"
-            :key=i.id
-            class="intro"
+            v-for="da,i in datas"
+            :key=da.id
+            
             >
-            <img :src="i.front_cover" class="fl">
+            <div
+                v-for="i,s in da.slice(0,2)"
+                :key="i.id"
+                class="intro"
+                @click="toskip(i.id)"
+                >
+                    <img :src="i.front_cover" class="fl">
                 <div class="fl">
                     <p>{{i.soundstr}}</p>
                     <span>{{i.username}}</span>
@@ -54,6 +64,8 @@
                         <span><i></i>{{i.duration | duration}}</span>
                     </div>
                 </div>
+            
+            </div>
             
             </div>
 
@@ -72,11 +84,7 @@ export default {
             datas:[],//分类数据简介
         }
     },
-    watch:{
-
-    },
-    computed:{
-
+    coomponents:{
     },
     filters:{
         count(v){
@@ -91,7 +99,6 @@ export default {
         }
     },
     mounted(){
-
         //获取格式简介数据
         axios.get("mobileWeb/catalogs")
         .then(res=>{
@@ -106,15 +113,12 @@ export default {
                         //获取分类简介数据
                         axios.get(`/mobileWeb/catalogmenu?order=3&cid=`+i)
                         .then(res=>{
-                        this.datas=(res.data.info.Datas)
-                        // console.log(this.title)
-                        // console.log(this.list)
-                        // console.log(this.intro)
-                        console.log(this.datas)     
+                        this.datas.push(res.data.info.Datas)  
                         })
                     }
                 }
             }
+            console.log(this.datas)
         })
 
         //获取全区动态简介数据
@@ -122,22 +126,35 @@ export default {
         axios.get(`/mobileWeb/catalogrank?cid=${id}`)
         .then(res=>{
            this.intro=res.data.info
+           console.log(this.intro)
         })
            
+    },
+    methods:{
+        toskip(id){
+            //详情页跳转
+          this.$router.push({ name:'detail', params: {id:id }})
+        },
     }
         
 }
 </script>
 <style scoped>
+.clearfloat:after{
+    content: "";display: block;clear: both;height:0;overflow: hidden;visibility: hidden;
+}
     .fl{
       float: left;
     }
     .herder{
         line-height: 40px;width: 100%;position: relative;top:0;text-align: center;
-        border-bottom:0.2px solid #E9E9E9;background: white；
+        border-bottom:0.2px solid #E9E9E9;background: white;
+    }
+    .toplist{
+        width: 100%;overflow-x: scroll;height: 35px;
     }
     .list{
-       line-height:35px; border-bottom:0.2px solid #E9E9E9;width: 100%;background: white；
+       line-height:35px; border-bottom:0.2px solid #E9E9E9;background:white;display: flex;width: 610px;
     }
     .list a{
         display: inline-block;text-align: center;font-size: 14px;margin: 0 5px;
@@ -150,7 +167,7 @@ export default {
     }
     .intro p{
         font-size: 16px;margin: auto;width:241px;margin:0;line-height: 1.2;text-align: left;padding: 0;
-        height: 38px;overflow: hidden;
+        height: 38px;overflow: hidden;color: #616161;
     }
     .intro span:nth-of-type(1){
         font-size: 12px;color: #727272;line-height: 1.3;

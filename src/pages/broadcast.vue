@@ -2,79 +2,89 @@
     <div class="broadcast">
         <div class="herder">{{name}}</div>
         <div class='nav'>
-            <span><i></i>更新时间</span>
-            <span><i></i>分类筛选</span>
+            <span @click="timeline"><i></i>更新时间</span>
+            <span @click="dramaapi"><i></i>分类筛选</span>
         </div>
         <div
-            v-for="i in sort"
-            :key='i'
+            v-for="da,i in datas"
+            :key="da.id"
+           
         >
             <h6 >{{i | cn}}</h6>
-            <div class="list"
-                 v-for='da in datas'
-                :key='da.id'>
-                <div
-                v-for="d in da.slice(0,9)"
+            <div  class="list">
+
+            <div
+                v-for="d in da"
                 :key='d.id'
+                @click="toskip(d.id)"
                  class="datas">
                     <img :src="`https://static.missevan.com/dramacoversmini/${d.cover}`">
                     <p>{{d.name}}</p>
                     <span><b>更新至</b>{{d.newest}}</span>
                 </div>
-
             </div>
-            
         </div>
     </div>
 </template>
 <script>
 import axios from 'axios'
+
 export default {
     data(){
         return{
-            name:"",
-            datas:[],
-            sort:[],
+            name:"", //头部名称
+            datas:[],//分类简介数据
         }
     },
+
     filters:{
         cn(v){
             if(v=="last"){
                return v="最新速递"
             }else if(v=="recommend"){
                 return v="小编推荐"
-            }else{
+            }else if(v=="classic"){
                 return v="经典作品"
+            }else{
+                v.innerhtml==""
             }
         }
     },
     methods:{
-     
+         toskip(id){
+        //详情页跳转
+          this.$router.push({ name:'', params: {id:id }})
+        },
+
+        timeline(){
+             this.$router.push('/timeline')
+        },
+        dramaapi(){
+            this.$router.push('/dramaapi')
+        }
     },
     mounted(){
 
         //获取头部名称
             let id=(this.$route.params.id)
             axios.get("mobileWeb/catalogs").then(res=>{
-                // console.log(res.data.info[id])
             this.name=(res.data.info[id].catalog_name)
             
         })
-        //获取分类简介
+       
         let url="/drama/rest/mobile/homepage"
         axios.get(url).then(res=>{
 
-            let datas=(res.data.info)
-            for(var i in datas){
-                this.datas.push(datas[i])
-            }
-            console.log(datas)
-         console.log(this.datas)
-
-            //获取分类名
-            this.sort=res.data.info.sort
-            // console.log(this.datas)
+            //获取分类简介
+           let datas =res.data.info
+                for(var i in datas){
+                   if(i=="sort"){
+                       delete datas.sort;
+                   }
+                }
+                this.datas=datas
         })
+        
     }
 }
 </script>
@@ -107,7 +117,8 @@ export default {
         width: 100%;display: flex;flex-wrap: wrap;justify-content: space-around;
     }
     .datas{
-        height: 170px;margin: 5px 0;color: #000000
+        width: 110px;overflow-x:hidden; min-height: 170px;
+        margin: 5px 0;color: #000000
     }
     .datas img{
         width: 110px;height: 110px;
@@ -116,7 +127,7 @@ export default {
         width: 110px;overflow: hidden;font-size: 13px;line-height: 20px
     }
     .datas span{
-        font-size: 12px;width: 110px;overflow-x: hidden;
+        font-size: 12px;width:90px;overflow: hidden;line-height: 15px;margin-bottom: 5px;
     }
     .datas span b{
         color:#9E9E9E;font-weight: 100;

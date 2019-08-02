@@ -19,7 +19,7 @@ import axios from 'axios'
 export default {
     data(){
         return{
-            catalogroot:[]
+            catalogroot:[] //分类名
         }
     },
     methods:{
@@ -32,6 +32,8 @@ export default {
         }
     },
     mounted(){
+
+        //分类名请求数据
         let url='/mobileWeb/catalogroot'
         axios.get(url).then(res=>{
             this.catalogroot=res.data.info
