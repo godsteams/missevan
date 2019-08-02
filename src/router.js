@@ -6,7 +6,7 @@ let router= new VueRouter({
     routes:[
         {path:"/albums",component:albums },  
         {name:"album_detail",path:"/album_detail",component:album_detail},  
-        // {path:"/dramadetail",component:dramadetail}
+        {path:"/dramadetail",component:dramadetail}
     ]
 })
 
