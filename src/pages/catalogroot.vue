@@ -19,28 +19,31 @@ export default {
     common,
     commonfooter
   },
-  data() {
-    return {
-      catalogroot: []
-    };
-  },
-  methods: {
-    toskip(id) {
-      if (id == 5) {
-        this.$router.push({ name: "broadcast", params: { id: id } });
-      } else {
-        this.$router.push({ name: "catalog", params: { id: id } });
-      }
-    }
-  },
-  mounted() {
-    let url = "/mobileWeb/catalogroot";
-    axios.get(url).then(res => {
-      this.catalogroot = res.data.info;
-      // console.log(this.catalogroot)
-    });
-  }
-};
+    data(){
+        return{
+            catalogroot:[] //分类名
+        }
+    },
+    methods:{
+        toskip(id){
+            if(id==5){
+            this.$router.push({ name:'broadcast', params: {id:id }})
+            }else{
+            this.$router.push({ name:'catalog', params: {id:id }})
+            }
+        }
+    },
+    mounted(){
+
+        //分类名请求数据
+        let url='/mobileWeb/catalogroot'
+        axios.get(url).then(res=>{
+            this.catalogroot=res.data.info
+            // console.log(this.catalogroot)
+        })
+    },
+
+}
 </script>
 <style scoped>
 .container {

@@ -4,10 +4,12 @@
     <!-- 头部 -->
     <div class="herder">{{title.catalog_name}}</div>
     <!-- 导航条 -->
-    <div class="list">
-      <!-- 锚点# -->
-      <a href="#all">全区动态</a>
-      <a :href="`#${li.catalog_name_alias}`" v-for=" li in list" :key="li.id">{{li.catalog_name}}</a>
+    <div class="toplist clearfloat">
+      <div class="list clearfloat">
+        <a href="#all">全区动态</a>
+        <!-- 锚点# -->
+        <a :href="`#${li.catalog_name_alias}`" v-for=" li in list" :key="li.id">{{li.catalog_name}}</a>
+      </div>
     </div>
 
     <div>
@@ -15,7 +17,7 @@
       <h6 id="all">
         <b></b>全区动态
       </h6>
-      <div v-for="i in intro.slice(0,4)" :key="i.id" class="intro">
+      <div v-for="i in intro.slice(0,4)" :key="i.id" class="intro" @click="toskip(i.id)">
         <img :src="i.front_cover" class="fl" />
         <div class="fl">
           <p>{{i.soundstr}}</p>
@@ -23,11 +25,11 @@
           <div>
             <span>
               <i></i>
-              {{i.view_count | count}}
+              {{i.view_coun}}
             </span>
             <span>
               <i></i>
-              {{i.duration | duration}}
+              {{i.duration | duration}}{{i.view_coun}}
             </span>
           </div>
         </div>
@@ -43,6 +45,27 @@
           <i></i>
         </span>
       </h6>
+
+      <!-- 分类简介 -->
+      <div v-for="da,i in datas" :key="da.id">
+        <div v-for="i,s in da.slice(0,2)" :key="i.id" class="intro" @click="toskip(i.id)">
+          <img :src="i.front_cover" class="fl" />
+          <div class="fl">
+            <p>{{i.soundstr}}</p>
+            <span>{{i.username}}</span>
+            <div>
+              <span>
+                <i></i>
+                {{i.view_count | count}}
+              </span>
+              <span>
+                <i></i>
+                {{i.duration | duration}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <!-- 分类简介 -->
       <div v-for="i in datas.slice(0,4)" :key="i.id" class="intro">
@@ -91,45 +114,69 @@ export default {
         return (v / 10000).toFixed(1) + "万";
       }
     },
-    duration(v) {
-      let s = v % 60;
-      let m = parseInt(v / 64000);
-      return m + ":" + s;
-    }
-  },
-  mounted() {
-    //获取格式简介数据
-    axios.get("mobileWeb/catalogs").then(res => {
-      let data = res.data.info;
-      for (var i in data) {
-        let id = this.$route.params.id;
-        if (i == id) {
-          this.title = data[id];
-          this.list = data[id].son;
-          console.log(res.data);
-          for (var i in data[id].son) {
-            //获取分类简介数据
-            axios.get(`/mobileWeb/catalogmenu?order=3&cid=` + i).then(res => {
-              this.datas = res.data.info.Datas;
-              // console.log(this.title)
-              // console.log(this.list)
-              // console.log(this.intro)
-              console.log(this.datas);
-            });
-          }
+  },  
+    filters:{
+        count(v){
+            if(v>10000){
+             return  (v/10000).toFixed(1)+'万'
+            }
+        },
+        duration(v){
+         let  s= v%60
+         let m=parseInt(v/64000)
+        return m +":"+s
         }
-      }
-    });
+    },
+    mounted(){
+        //获取格式简介数据
+        axios.get("mobileWeb/catalogs")
+        .then(res=>{
+            let data=res.data.info
+            for(var i in data){
+                let id=(this.$route.params.id)
+                if(i==id){
+                    this.title=data[id]
+                    this.list=data[id].son
+                    console.log(res.data)
+                    for(var i in data[id].son){
+                        //获取分类简介数据
+                        axios.get(`/mobileWeb/catalogmenu?order=3&cid=`+i)
+                        .then(res=>{
+                        this.datas.push(res.data.info.Datas)  
+                        })
+                    }
+                }
+            }
+            console.log(this.datas)
+        })
 
-    //获取全区动态简介数据
-    let id = this.$route.params.id;
-    axios.get(`/mobileWeb/catalogrank?cid=${id}`).then(res => {
-      this.intro = res.data.info;
-    });
-  }
-};
+        //获取全区动态简介数据
+        let id=(this.$route.params.id)
+        axios.get(`/mobileWeb/catalogrank?cid=${id}`)
+        .then(res=>{
+           this.intro=res.data.info
+           console.log(this.intro)
+        })
+           
+    },
+    methods:{
+        toskip(id){
+            //详情页跳转
+          this.$router.push({ name:'detail', params: {id:id }})
+        },
+    }
+}       
+
 </script>
 <style scoped>
+.clearfloat:after {
+  content: "";
+  display: block;
+  clear: both;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
 .fl {
   float: left;
 }
@@ -140,14 +187,19 @@ export default {
   top: 0;
   text-align: center;
   border-bottom: 0.2px solid #e9e9e9;
-  background: #fff;
+  background: white;
+}
+.toplist {
+  width: 100%;
+  overflow-x: scroll;
+  height: 35px;
 }
 .list {
   line-height: 35px;
   border-bottom: 0.2px solid #e9e9e9;
-  background: #fff;
-  white-space: nowrap;
-  overflow-x:scroll ;
+  background: white;
+  display: flex;
+  width: 610px;
 }
 .list a {
   display: inline-block;
@@ -177,6 +229,7 @@ export default {
   padding: 0;
   height: 38px;
   overflow: hidden;
+  color: #616161;
 }
 .intro span:nth-of-type(1) {
   font-size: 12px;
