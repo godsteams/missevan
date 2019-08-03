@@ -36,7 +36,7 @@ import commonhead from "../components/commonHead";
 import commonfooter from "../components/commonfooter";
 export default {
   components:{
-    commonfooter,commonfooter
+    commonhead,commonfooter
   },
     data(){
         return{
