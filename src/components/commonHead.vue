@@ -3,7 +3,7 @@
         <!-- 头部 -->
         <header>
             <!-- logo -->
-            <div></div>
+            <div @click="toindex"></div>
             <!-- 搜索 -->
             <router-link to="/search"></router-link>
             <!-- 点击显示登录页 -->
@@ -65,6 +65,9 @@ export default {
                 this.$refs.login.style.right = "-100%"
             }
         },
+        toindex(){
+            this.$router.push("/")
+        }
     },
 }
 </script>
