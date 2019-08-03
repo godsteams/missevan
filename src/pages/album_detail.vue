@@ -99,7 +99,7 @@ header {
 .top {
   position: absolute;
   height: 110px;
-  top: 36px;
+  top: 60px;
   left: 10px;
 }
 .pic {

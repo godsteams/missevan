@@ -1,7 +1,9 @@
 <template>
     <div class="broadcast">
-      <commonhead/>
+      <div class="top">
+        <commonhead/>
         <div class="herder">{{name}}</div>
+      </div>
         <div class='nav'>
             <span @click="timeline"><i></i>更新时间</span>
             <span @click="dramaapi"><i></i>分类筛选</span>
@@ -61,7 +63,7 @@ export default {
     methods:{
          toskip(id){
         //详情页跳转
-          this.$router.push({ name:'', params: {id:id }})
+          this.$router.push({ name:'dramadetail', params: {id:id }})
         },
 
         timeline(){
@@ -107,10 +109,14 @@ export default {
     axios.get(url).then(res => {
       let datas = res.data.info;
       for (var i in datas) {
-        this.datas.push(datas[i]);
+       if(i!="sort"){
+          this.datas.push(datas[i]);
+        }
+       
+
       }
-      console.log(datas);
-      console.log(this.datas);
+      // console.log(datas);
+      // console.log(this.datas);
 
       //获取分类名
       this.sort = res.data.info.sort;
@@ -120,90 +126,15 @@ export default {
 };
 </script>
 <style scoped>
-.broadcast {
-  background: #f5f5f5;
-}
-.herder {
-  line-height: 40px;
-  width: 100%;
-  position: relative;
-  top: 0;
-  text-align: center;
-  border-bottom: 0.2px solid #e9e9e9;
-  background: #ffffff;
-}
-.nav {
-  display: flex;
-  justify-content: space-around;
-}
-.nav span {
-  height: 40px;
-  line-height: 38px;
-  background-color: #fff;
-  display: inline-block;
-  width: 172px;
-  font-size: 14px;
-  font-weight: 700;
-  margin: 20px 0;
-  padding: 0;
-  color: #000;
-  border-radius: 8px;
-  text-align: center;
-}
-.nav span i {
-  display: inline-block;
-  width: 35px;
-  height: 35px;
-  background-image: url(../assets/img/xiebi.png);
-  background-size: 261px 235px;
-  vertical-align: middle;
-  margin-right: 5px;
-  background-position: -149px -37px;
-}
-.nav span:nth-of-type(1) i {
-  background-position: -149px 0;
-}
-h6 {
-  font-size: 16px;
-  line-height: 40px;
-  padding: 0 14px;
-}
-.list {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-.datas {
-  height: 170px;
-  margin: 5px 0;
-  color: #000000;
-}
-.datas img {
-  width: 110px;
-  height: 110px;
-}
-.datas p {
-  width: 110px;
-  overflow: hidden;
-  font-size: 13px;
-  line-height: 20px;
-}
-.datas span {
-  font-size: 12px;
-  width: 110px;
-  overflow-x: hidden;
-}
-.datas span b {
-  color: #9e9e9e;
-  font-weight: 100;
-}
     .broadcast{
         background: #F5F5F5;
     }
     .herder{
-        line-height: 40px;width: 100%;position: relative;top:0;text-align: center;
-        border-bottom:0.2px solid #E9E9E9;background: white；
+        line-height: 40px;width: 100%;position:fixed;top:40px;text-align: center;
+        border-bottom:0.2px solid #E9E9E9;background:white;
+    }
+    .top{
+      height: 80px;
     }
     .nav{
         display: flex;justify-content: space-around;

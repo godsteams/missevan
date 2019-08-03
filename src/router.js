@@ -11,9 +11,9 @@ import loginsuccess from "./pages/loginsuccess.vue"
 import catalogs from './pages/catalogs.vue'
 import catalogroot from './pages/catalogroot.vue'
 import broadcast from './pages/broadcast.vue'
-// import timeline from'./pages/timeline.vue' 
-// import dramaapi from'./pages/dramaapi.vue' 
-// import dramadetail from'./pages/dramadetail.vue' 
+import timeline from'./pages/timeline.vue' 
+import dramaapi from'./pages/dramaapi.vue' 
+import dramadetail from'./pages/dramadetail.vue' 
 // 引入牟笑然的组件
 import albums from './pages/albums'
 import album_detail from './pages/album_detail'
@@ -36,14 +36,14 @@ const router = new VueRouter({
         { path: "/register", component: register },
         { path: "/loginsuccess", component: loginsuccess },
         { path: '/catalogroot', component: catalogroot },
-        { name: 'catalog', path: '/catalogs', component: catalogs },
-        { name: 'broadcast', path: '/broadcast', component: broadcast },
+        { name: 'catalog', path: '/catalogs/:id', component: catalogs },
+        { name: 'broadcast', path: '/broadcast/:id', component: broadcast },
         { path: "/albums", component: albums },
         { name: "album_detail", path: "/album_detail", component: album_detail },
         { path: "/", component: recommend },
-        // {name:'dramadetail' ,path:'/dramadetail',component:dramadetail},
-        // { path:'/timeline',component:timeline},
-        // { path:'/dramaapi',component:dramaapi},
+        {name:'dramadetail' ,path:'/dramadetail/:id',component:dramadetail},
+        { path:'/timeline',component:timeline},
+        { path:'/dramaapi',component:dramaapi},
         {
             name: "detail",
             path: "/detail/:id",

@@ -1,5 +1,7 @@
 <template>
-    <div>
+<div>
+    <div class="top">
+       <commonhead class="commonhead"></commonhead>
         <div class="header">剧集更新表</div>
         <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
             <el-submenu index="1">
@@ -30,8 +32,10 @@
                     <el-menu-item index="2-4" @click=getDatas(3,3)>全年龄</el-menu-item>
                 </div>
              </el-submenu>
-            <el-menu-item index="4" >筛选</el-menu-item>
+            <el-menu-item index="4" @click="tologin">更多</el-menu-item>
          </el-menu>
+    </div>
+        
     <div class="main">
         <div
             v-for="da in datas"
@@ -44,17 +48,14 @@
         <h5>{{da.newest | newest}}</h5>
         </div>
     </div>
-    
-    
-    
-    
-    
-    
-    </div>
+    <commonfooter/>
+ </div>
 </template>
 <script>
 import axios from 'axios';
 import { Button, Select } from 'element-ui'; 
+import commonhead from "../components/commonHead";
+import commonfooter from "../components/commonfooter";
 export default {
     data(){
         return{
@@ -65,6 +66,9 @@ export default {
             c:0,
         }
     },
+    components: {
+    commonhead,commonfooter
+  },
     filters:{
         newest(v){
             return "更新至"+"  "+v
@@ -80,9 +84,16 @@ export default {
     },
     methods:{
         handleSelect(key, keyPath) {
-        // console.log(key, keyPath);
-      },
-      getDatas(num,w){
+            // console.log(key, keyPath);
+        },
+        tologin(){
+          this.$router.push("/login")   
+        },
+        toskip(id){
+            //详情页跳转
+          this.$router.push({ name:'dramadetail', params: {id:id }})
+        },
+        getDatas(num,w){
           if(w==3){
             this.a=num
           }else if(w==4){
@@ -91,22 +102,30 @@ export default {
             this.c=num
           }
           
-         axios.get(`/dramaapi/filter?filters=0_${ this.a}_${ this.b}_${ this.c}_0`).then(res=>{
+        axios.get(`/dramaapi/filter?filters=0_${ this.a}_${ this.b}_${ this.c}_0`)
+            .then(res=>{
            this.datas=(res.data.info.Datas)
-           console.log( this.a, this.b, this.c)
-        })
+         //    console.log( this.a, this.b, this.c)
+            })
       },
-      toskip(id){
- //详情页跳转
-          this.$router.push({ name:'dramadetail', params: {id:id }})
-    },
+     
     }
 }
 </script>
 <style scoped> 
+    .commonhead{
+        z-index: 10;
+    }
+     .top{
+        height: 130px;z-index: 10;
+    }
     .header{
         line-height: 40px;width: 100%;text-align: center;font-size: 16px;background: white;
-        border-left: 0.2px solid #E0E0E0;
+        border-left: 0.2px solid #EEEEEE;position: fixed;top:40px;z-index: 10;
+    }
+   
+    .el-menu-demo{
+        position:fixed;top:80px;z-index: 10;
     }
     .submenu{
         width: 100%;display: flex;
@@ -116,6 +135,7 @@ export default {
     }
     .main{
         display: flex;flex-wrap: wrap;
+        margin-top: 5px;
     }
     .datas{
         width: 33%;padding: 5px 5px 10px;box-sizing: border-box;
@@ -133,8 +153,11 @@ export default {
      .el-menu--horizontal{
          width: 100%;
      }
-     .submenu{
-         width: 100%;
+     .el-menu--horizontal ul{
+         width:100%;display: flex;justify-content: space-around;
      }
+     .el-menu--popup-bottom-start {
+        margin-top: 5px;
+    }
 
 </style>

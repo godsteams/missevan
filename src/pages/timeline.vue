@@ -1,7 +1,9 @@
 <template>
+
     <div class="main">
+        <commonhead />
        <div class="header">剧集更新表</div>
-       <h6>· <b>最近</b></h6>
+       <h6 class="header-bottom">· <b>最近</b></h6>
        <div class="content">
            
              <div 
@@ -39,11 +41,15 @@
                 </div> 
 
         </div>
-              
+        <commonfooter/>
     </div>
 </template>
 <script>
 import axios from 'axios'
+import commonhead from "../components/commonHead";
+import commonfooter from "../components/commonfooter";
+
+  
 export default {
     data(){
         return{
@@ -51,9 +57,12 @@ export default {
         recent:[]
         }
     },
+    components: {
+    commonhead,
+    commonfooter
+  },
     mounted(){
         axios.get('/dramaapi/timeline').then(res=>{
-            console.log(res.data)
             this.lastupdate=res.data.info.lastupdate
             this.recent=res.data.info.recent
 
@@ -73,14 +82,17 @@ export default {
     }
     .header{
         line-height: 40px;width: 100%;text-align: center;font-size: 16px;background: white;
-        border-left: 0.2px solid #E0E0E0;
+        border-left: 0.2px solid #E0E0E0;position:fixed;top:40px;
+    }
+    .header-bottom{
+        margin-top: 40px;
     }
     .content{
         border-left: 0.2px solid #E0E0E0;box-sizing: border-box;padding: 10px 10px 10px 15px;
         margin-left: 15px;
     }
     .intro{
-        height: 60px;margin-bottom: 10px;background: white;padding: 10px;
+        height: 80px;margin-bottom: 10px;background: white;padding: 10px;
         border-radius:6px;
     }
     h6{

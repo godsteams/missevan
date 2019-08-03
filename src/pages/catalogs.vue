@@ -1,18 +1,21 @@
 <template>
   <div>
-    <commonhead />
-    <!-- 头部 -->
-    <div class="herder">{{title.catalog_name}}</div>
-    <!-- 导航条 -->
-    <div class="toplist clearfloat">
+    <div class="top">
+      <commonhead />
+      <!-- 头部 -->
+      <div class="herder">{{title.catalog_name}}</div>
+      <!-- 导航条 -->
+      <div class="toplist clearfloat">
       <div class="list clearfloat">
         <a href="#all">全区动态</a>
         <!-- 锚点# -->
         <a :href="`#${li.catalog_name_alias}`" v-for=" li in list" :key="li.id">{{li.catalog_name}}</a>
       </div>
     </div>
+    </div>
+    
 
-    <div>
+    <div class="all">
       <!-- 锚点 -->
       <h6 id="all">
         <b></b>全区动态
@@ -23,37 +26,6 @@
           <p>{{i.soundstr}}</p>
           <span>{{i.username}}</span>
           <div>
-            <span>
-              <i></i>
-              {{i.view_coun}}
-            </span>
-            <span>
-              <i></i>
-              {{i.duration | duration}}{{i.view_coun}}
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-for=" li in list" :key="li.id">
-      <!-- 锚点 -->
-      <h6 :id="li.catalog_name_alias">
-        <b></b>
-        {{li.catalog_name}}
-        <span>
-          更多
-          <i></i>
-        </span>
-      </h6>
-
-      <!-- 分类简介 -->
-      <div v-for="da,i in datas" :key="da.id">
-        <div v-for="i,s in da.slice(0,2)" :key="i.id" class="intro" @click="toskip(i.id)">
-          <img :src="i.front_cover" class="fl" />
-          <div class="fl">
-            <p>{{i.soundstr}}</p>
-            <span>{{i.username}}</span>
-            <div>
               <span>
                 <i></i>
                 {{i.view_count | count}}
@@ -63,29 +35,31 @@
                 {{i.duration | duration}}
               </span>
             </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 分类简介 -->
-      <div v-for="i in datas.slice(0,4)" :key="i.id" class="intro">
-        <img :src="i.front_cover" class="fl" />
-        <div class="fl">
-          <p>{{i.soundstr}}</p>
-          <span>{{i.username}}</span>
-          <div>
-            <span>
-              <i></i>
-              {{i.view_count | count}}
-            </span>
-            <span>
-              <i></i>
-              {{i.duration | duration}}
-            </span>
-          </div>
         </div>
       </div>
     </div>
+      
+    <!-- 分类简介 -->
+      <div v-for="da in datas" :key="da.id">
+        <!-- 锚点 -->
+        <div v-for=" li in list" :key="li.id">
+          <h6 :id="li.catalog_name_alias" >
+            <b></b>{{li.catalog_name}}
+            <span @click="tologin">更多<i></i></span>
+          </h6>
+      <div v-for="i in da.slice(0,4)" :key="i.id" class="intro" @click="toskip(i.id)">
+          <img :src="i.front_cover" class="fl" />
+          <div class="fl">
+            <p>{{i.soundstr}}</p>
+            <span>{{i.username}}</span>
+            <div>
+              <span><i></i>{{i.view_count | count}}</span>
+              <span><i></i>{{i.duration | duration}}</span>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
     <commonfooter />
   </div>
 </template>
@@ -107,19 +81,13 @@ export default {
     };
   },
   watch: {},
-  computed: {},
-  filters: {
-    count(v) {
-      if (v > 10000) {
-        return (v / 10000).toFixed(1) + "万";
-      }
-    },
-  },  
+  computed: {}, 
     filters:{
         count(v){
             if(v>10000){
-             return  (v/10000).toFixed(1)+'万'
+             v=(v/10000).toFixed(1)+'万'
             }
+            return v
         },
         duration(v){
          let  s= v%60
@@ -137,7 +105,6 @@ export default {
                 if(i==id){
                     this.title=data[id]
                     this.list=data[id].son
-                    console.log(res.data)
                     for(var i in data[id].son){
                         //获取分类简介数据
                         axios.get(`/mobileWeb/catalogmenu?order=3&cid=`+i)
@@ -147,7 +114,7 @@ export default {
                     }
                 }
             }
-            console.log(this.datas)
+            // console.log(this.datas)
         })
 
         //获取全区动态简介数据
@@ -155,7 +122,6 @@ export default {
         axios.get(`/mobileWeb/catalogrank?cid=${id}`)
         .then(res=>{
            this.intro=res.data.info
-           console.log(this.intro)
         })
            
     },
@@ -164,11 +130,17 @@ export default {
             //详情页跳转
           this.$router.push({ name:'detail', params: {id:id }})
         },
+        tologin(){
+          this.$router.push("/login")
+        },
     }
 }       
 
 </script>
 <style scoped>
+.top{
+  height: 130px;
+}
 .clearfloat:after {
   content: "";
   display: block;
@@ -183,8 +155,8 @@ export default {
 .herder {
   line-height: 40px;
   width: 100%;
-  position: relative;
-  top: 0;
+  position: fixed;
+  top:40px;
   text-align: center;
   border-bottom: 0.2px solid #e9e9e9;
   background: white;
@@ -193,6 +165,8 @@ export default {
   width: 100%;
   overflow-x: scroll;
   height: 35px;
+  position: fixed;
+  top:80px;
 }
 .list {
   line-height: 35px;
@@ -208,7 +182,7 @@ export default {
   margin: 0 5px;
 }
 .intro {
-  height: 70px;
+  height: 100px;
   margin: 0px 15px;
   border-bottom: 0.2px solid #e9e9e9;
   padding: 15px 0;
@@ -247,7 +221,7 @@ span i {
   margin-right: 5px;
 }
 .intro div span {
-  margin-right: 20px;
+  margin-right: 20px;color: #727272;
 }
 .intro div span:nth-of-type(2) i {
   background-position: -29px -44px;
@@ -260,7 +234,7 @@ h6 {
 }
 h6 span {
   float: right;
-  color: #e9e9e9;
+  color: #CCCCCC;
   font-size: 13px;
   vertical-align: baseline;
 }

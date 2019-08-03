@@ -286,7 +286,7 @@ p {
   margin-top: 10px;
 }
 .right span {
-  height: 45.5px;
+  height: 46.5px;
   display: inline-block;
   border-left: 0;
   width: 135px;
